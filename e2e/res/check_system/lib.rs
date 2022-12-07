@@ -7,11 +7,13 @@ use pink_extension as pink;
 #[pink::contract(env = PinkEnvironment)]
 mod check_system {
     use super::pink;
+    use alloc::string::String;
     use alloc::vec::Vec;
-    use pink::system::{ContractDeposit, Result, SystemRef, DriverError};
+    use pink::system::{ContractDeposit, DriverError, Result, SystemRef};
     use pink::PinkEnvironment;
 
     #[ink(storage)]
+    #[derive(Default)]
     pub struct CheckSystem {
         on_block_end_called: bool,
     }
@@ -19,11 +21,7 @@ mod check_system {
     impl CheckSystem {
         #[ink(constructor)]
         pub fn default() -> Self {
-            let system = pink::system::SystemRef::instance();
-            _ = system.get_driver("NotExists".into());
-            Self {
-                on_block_end_called: false,
-            }
+            Default::default()
         }
 
         #[ink(message)]

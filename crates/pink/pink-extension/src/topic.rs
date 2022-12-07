@@ -1,12 +1,13 @@
 //! The TopicsBuilder implementation is copied from ink-env since it is no longer exported by ink-env-3.0.0.
 use crate::PinkEnvironment;
-use ink_env::{
+use ink::env::{
     hash::{Blake2x256, CryptoHash, HashOutput},
     topics::TopicsBuilderBackend,
-    Clear, Environment, Topics,
+    Environment, Topics,
 };
+use ink::primitives::Clear;
 
-pub fn topics_for(event: impl Topics + scale::Encode) -> Vec<ink_env::Hash> {
+pub fn topics_for(event: impl Topics + scale::Encode) -> Vec<ink::primitives::Hash> {
     event.topics::<PinkEnvironment, _>(TopicsBuilder::<PinkEnvironment>::new().into())
 }
 

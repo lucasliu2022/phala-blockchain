@@ -1,10 +1,9 @@
 use alloc::borrow::Cow;
 use alloc::vec::Vec;
 use ink::ChainExtensionInstance;
-use ink_lang as ink;
 
 pub use http_request::{HttpRequest, HttpResponse};
-pub use ink_env::AccountId;
+pub use ink::primitives::AccountId;
 pub use signing::SigType;
 
 use crate::{Balance, EcdsaPublicKey, EcdsaSignature, Hash};
@@ -23,7 +22,7 @@ pub struct StorageQuotaExceeded;
 #[cfg_attr(feature = "std", derive(scale_info::TypeInfo))]
 pub enum ErrorCode {}
 
-impl ink_env::chain_extension::FromStatusCode for ErrorCode {
+impl ink::env::chain_extension::FromStatusCode for ErrorCode {
     fn from_status_code(status_code: u32) -> Result<(), Self> {
         match status_code {
             0 => Ok(()),
